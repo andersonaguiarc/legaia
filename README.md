@@ -128,6 +128,43 @@ legaia-mvp/
 └── README.md
 ```
 
+### Estructura Modular Recomendada
+```
+src/
+├── modules/                    # Módulos de dominio
+│   ├── auth/
+│   │   ├── service.ts         # Lógica de negocio
+│   │   ├── repository.ts      # Acceso a datos
+│   │   └── types.ts           # Tipos/interfaces
+│   │
+│   ├── documents/
+│   │   ├── service.ts
+│   │   ├── repository.ts
+│   │   └── types.ts
+│   │
+│   ├── ai-generation/
+│   │   ├── service.ts         # ← Fácil de extraer
+│   │   ├── openai.client.ts
+│   │   └── types.ts
+│   │
+│   └── payments/
+│       ├── service.ts
+│       ├── stripe.client.ts
+│       └── types.ts
+│
+└── app/                        # Next.js routes (thin controllers)
+    └── api/
+        ├── documents/
+        │   └── route.ts        # ← Solo orquestación
+        └── payments/
+            └── route.ts
+
+// Cada módulo es autocontenido
+// Interfaces claras entre módulos
+// Fácil de testear en aislamiento
+// Fácil de extraer a servicio separado
+```
+
 ---
 
 ## 🚀 Getting Started
